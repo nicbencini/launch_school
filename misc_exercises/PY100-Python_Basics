@@ -1,0 +1,205 @@
+name = 'Roger'
+
+print(name.casefold() == 'RoGeR'.casefold())
+
+song = 'A pirate I was meant to be! \n Trim the sails and roam the sea!'
+
+print(song)
+
+print('x' in 'char_sequence')
+
+def is_empty(in_str):
+    return True if len(in_str) > 0 else False
+
+print(is_empty('mars'))  
+print(is_empty('  '))    
+print(is_empty('')) 
+
+def is_empty_or_blank(in_str):
+
+    if len(in_str)==0 or in_str.isspace():
+        return True
+    else:
+        return False
+
+print(is_empty_or_blank('mars'))  # False
+print(is_empty_or_blank('  '))    # True
+print(is_empty_or_blank(''))   
+
+words = 'launch school tech & talk'.split(' ')
+
+def starts_with(text, prefix):
+    return True if text.find(prefix) ==0 else False
+
+
+print(starts_with("launch", "la"))   # True
+print(starts_with("school", "sah"))  # False
+print(starts_with("school", "sch"))  # True
+
+def count_substrings(text, substring):
+    return text.count(substring)
+
+print(count_substrings("lemon lemon lemon", "lemon")) # 3
+print(count_substrings("laLAlaLA", "la")) # 2
+print(count_substrings("launch", "uno")) # 0
+
+
+def first(in_list):
+    return in_list[0]
+
+print(first(['Earth', 'Moon', 'Mars']))  # Earth
+
+
+
+energy = ['fossil', 'solar', 'wind', 'tidal', 'fusion']
+
+energy.remove('fossil')
+energy.append('geothermal')
+
+print(energy)
+
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+print(list(alphabet))
+
+
+
+scores = [96, 47, 113, 89, 100, 102]
+
+count = 0
+
+for element in scores:
+    if element >= 100:
+        count += 1
+
+print(count)
+
+
+vocabulary = [
+    ['happy', 'cheerful', 'merry', 'glad'],
+    ['tired', 'sleepy', 'fatigued', 'drained'],
+    ['excited', 'eager', 'enthused', 'animated'],
+]
+
+for sublist in vocabulary:
+    for word in sublist:
+        print(word)
+
+
+
+some_value1 = [0, 1, 0, 0, 1]
+some_value2 = 'I leave you my Kingdom, take good care of it.'
+
+
+destinations = ['Prague', 'London', 'Sydney', 'Belfast',
+                'Rome', 'Aruba', 'Paris', 'Bora Bora',
+                'Barcelona', 'Rio de Janeiro', 'Marrakesh',
+                'New York City']
+
+def contains(dest, lst):
+    
+    for country in lst:
+        if country == dest:
+            return True
+    return False
+
+
+
+print(contains('Barcelona', destinations)) # True
+print(contains('Nashville', destinations)) # False
+
+passcode = ['11', 'jZ5', 'hQ3f*', '8!7g3', 'p3Fs']
+
+
+
+print (str.join('-',passcode))
+
+
+grocery_list = ['paprika', 'tofu', 'garlic', 'quinoa',
+                'carrots', 'broccoli', 'hummus']
+
+
+
+while len(grocery_list) > 0:
+    print(grocery_list[0])
+    grocery_list.pop(0)
+    
+car = {'type':'sedan', 
+       'color':'blue',
+       'mileage':'80000'}
+
+
+car['year'] = 2003
+
+del car['mileage']
+
+print(car['color'])
+print(len(car.keys()))
+
+
+student = {
+    'id': 123,
+    'grade': 'B',
+}
+
+print('name' in student)
+
+vehicles = {'car': 
+                {'type':'sedan', 
+                'color':'blue',
+                'mileage':'80000'},
+            'truck':
+                {'type':'sedan', 
+                'color':'blue',
+                'mileage':'80000'}
+            }
+
+car = {
+    'type':  'sedan',
+    'color': 'blue',
+    'year':  2003,
+}
+
+numbers = {
+    'high':   100,
+    'medium': 50,
+    'low':    25,
+}
+
+half_numbers = []
+
+for key in numbers:
+    half_numbers.append(int(numbers[key]/2))
+
+print(half_numbers)
+
+for key in numbers:
+    print(f'A {key} number is {numbers[key]}.')
+
+
+import random
+
+def predict_weather():
+    sunshine = random.choice([True, False])
+
+    print(sunshine)
+
+    if sunshine:
+        print("Today's weather will be sunny!")
+    else:
+        print("Today's weather will be cloudy!")
+
+predict_weather()
+
+def multiply_by_five(n):
+    return int(n) * 5
+
+print("Hello! Which number would you like to multiply by 5?")
+number = 8
+
+print(f"The result is {multiply_by_five(number)}!")
+
+info = {'name': 'Srdjan', 'age': 38}
+
+print(info.get('city','unknown'))
