@@ -1,0 +1,48 @@
+```python
+word = 'what-a-b.e.a.utiful day!'
+
+crazy_letters = []
+
+word = [character for character in word if character.isalpha()]
+
+for i in range(len(word)):
+    # if word[i].isalpha():
+    if i % 2 == 0:
+        crazy_letters.append(word[i])
+    else:
+        crazy_letters.append(word[i].upper())
+
+
+print(crazy_letters) # ['w', 'H', 'a', 'T', 'a', 'B', 'e', 'A', 'u', 'T', 'i', 'F', 'u', 'L', 'd', 'A', 'y']
+
+# You will be given a number and you will need to return it as a string in expanded form. For example:
+
+# expanded_form(12); # Should return '10 + 2'
+# expanded_form(42); # Should return '40 + 2'
+# expanded_form(70304); # Should return '70000 + 300 + 4'
+
+# Note: All numbers will be whole numbers greater than 0.
+
+def expanded_form(num):
+
+
+print(expanded_form(12) == '10 + 2')
+print(expanded_form(42) == '40 + 2')
+print(expanded_form(70304) == '70000 + 300 + 4')
+
+
+#####
+
+# Remove all duplicate letters from a string, keeping only the first occurrence.
+# The input is restricted to contain no numerals and only words containing the English alphabet letters.
+
+def remove_duplicates(string):
+
+
+# Tests
+print(remove_duplicates("Launch School") == "Launch So")
+print(remove_duplicates("CodeWars can't Load Today") == "CodeWars n'tLy")
+print(remove_duplicates("success") == "suce")
+
+```
+
