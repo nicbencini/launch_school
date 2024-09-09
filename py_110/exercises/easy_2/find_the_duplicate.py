@@ -1,10 +1,32 @@
 """
-Given an unordered list and the information that exactly one value in the list occurs twice (every other value occurs exactly once), determine which value occurs twice. Write a function that finds and returns the duplicate value.
+Given an unordered list and the information that exactly one value in the list occurs twice 
+(every other value occurs exactly once), determine which value occurs twice. Write a function 
+that finds and returns the duplicate value.
 
 You may assume that the input list will always have exactly one duplicate value.
+
+Program:
+Input: List with one duplicate value
+Retrun: Integer value of that duplicate value
+
+Rules:
+- List will always have one duplicate value
+
+Algorithm:
+- Use for loop to cycle through unique values using set
+- remove item from list
+- only duplicate item will remain
 """
 
-Copy Code
+def find_dup(input_list):
+    
+    output = input_list
+
+    for item in set(input_list):
+        output.remove(item)  
+     
+    return output[0]
+
 print(find_dup([1, 5, 3, 1]) == 1) # True
 print(find_dup([
                   18,  9, 36, 96, 31, 19, 54, 75, 42, 15,
