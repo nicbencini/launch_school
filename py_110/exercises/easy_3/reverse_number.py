@@ -1,6 +1,10 @@
 """
 Write a function that takes a positive integer as an argument and returns that number with its digits reversed.
 """
+def reverse_number(number):
+    
+    return int(''.join(reversed(list(str(number)))))
+
 
 print(reverse_number(12345) == 54321)   # True
 print(reverse_number(12213) == 31221)   # True

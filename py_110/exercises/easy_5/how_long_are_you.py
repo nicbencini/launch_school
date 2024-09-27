@@ -1,8 +1,25 @@
 """
-Write a function that takes a string as an argument and returns a list that contains every word from the string, with each word followed by a space and the word's length. If the argument is an empty string or if no argument is passed, the function should return an empty list.
+Write a function that takes a string as an argument and returns a list that contains every word from the string, 
+with each word followed by a space and the word's length. If the argument is an empty string or if no argument is passed, 
+the function should return an empty list.
 
 You may assume that every pair of words in the string will be separated by a single space.
+
+Program:
+Input: string
+Output: list
+
+Algorithm:
+- split input string by spaces
+- cycle through each word in the string and get the length
+- for each word create a string with the word and the word length as an integer
+- append reuslt to output list
 """
+
+def word_lengths(input_string = ''):
+
+    return [f'{word} {len(word)}' for word in input_string.split(' ') if len(word) > 0]
+
 
 # All of these examples should print True
 words = 'cow sheep chicken'

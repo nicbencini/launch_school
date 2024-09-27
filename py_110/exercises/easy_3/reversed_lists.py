@@ -1,8 +1,30 @@
 """
-Write a function that takes a list as an argument and reverses its elements, in place. That is, mutate the list passed into the function. The returned object should be the same object used as the argument.
+Write a function that takes a list as an argument and reverses its elements, in place. 
+That is, mutate the list passed into the function. The returned object should be the same object used as the argument.
 
 You may not use the list.reverse method nor may you use a slice ([::-1]).
+
+Problem
+Input: List
+Output: reversed list
+
+Algorithm:
+- List is passed into function as argument
+- store list as local variable to save values
+- cycle through indeces in input list which references global list and assign the item from local list in reversed order
+- returm global list which is referenced into function
+
 """
+
+import copy
+
+def reverse_list(input_list):
+    orignal_list =  copy.deepcopy(input_list)
+
+    for i in range(len(input_list)):
+        input_list[i] = orignal_list[(-i)-1]
+
+    return input_list
 
 list1 = [1, 2, 3, 4]
 result = reverse_list(list1)
