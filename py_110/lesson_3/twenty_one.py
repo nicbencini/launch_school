@@ -1,5 +1,4 @@
 """
-
 Problem:
 
 Examples:
@@ -44,10 +43,6 @@ VALUES = { '2': 2,
 
 SCORE_LIMIT = 42
 DEALER_LIMIT =  SCORE_LIMIT - 4
-
-# Global Variables
-player_win_count = 0
-dealer_win_count = 0
 
 # Functions
 def initialize_deck():
@@ -98,9 +93,9 @@ def get_score(cards_):
     Algorithm:
     # create count for aces
     # cycle through cards and count aces, if card is not ace then add score to total score
-    # if total score + (count of aces -1 + 11) < 21 then first ace is 11
-    # all following aces are 1
-    # if not all aces are 1
+    # if card is ace
+        # if total score + (count of aces -1 + 11) < 21 then first ace is 11, all following aces are 1
+        # if not all aces are 1
     """
     aces_count = 0
     score = 0
@@ -195,6 +190,10 @@ def play_twenty_one():
         print('\n\nIt is a draw!')
 
     return result
+
+# Global Variables
+player_win_count = 0
+dealer_win_count = 0
 
 #Game Loop
 while True:
