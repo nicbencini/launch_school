@@ -26,6 +26,7 @@ Algorithm:
 import random
 import os
 
+# Constants
 SUITS = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
 VALUES = { '2': 2,
            '3': 3,
@@ -40,9 +41,15 @@ VALUES = { '2': 2,
            'Queen':10,
            'King': 10,
            'Ace': 1}
+
 SCORE_LIMIT = 42
 DEALER_LIMIT =  SCORE_LIMIT - 4
 
+# Global Variables
+player_win_count = 0
+dealer_win_count = 0
+
+# Functions
 def initialize_deck():
 
     return [f'{value[0]} of {suit}' for suit in SUITS
@@ -66,8 +73,10 @@ def display_cards(player_cards_, dealer_cards_):
 
     os.system('clear')
 
-    print(f'Score limit is {SCORE_LIMIT}')
-    print(f'Player score: {get_score(player_cards_)} | Dealer score: {get_score(dealer_cards_)}')
+    print(f'Player win count: {player_win_count:02d} | Dealer win count: {dealer_win_count:02d}')
+    print(f'Player score: {get_score(player_cards_):02d}     |'
+          f' Dealer score: {get_score(dealer_cards_):02d}')
+    print(f'Game score limit is {SCORE_LIMIT}')
 
     print('\nPlayer Cards:')
     for card in player_cards_:
@@ -86,6 +95,7 @@ def display_cards(player_cards_, dealer_cards_):
 
 def get_score(cards_):
     """
+    Algorithm:
     # create count for aces
     # cycle through cards and count aces, if card is not ace then add score to total score
     # if total score + (count of aces -1 + 11) < 21 then first ace is 11
@@ -120,6 +130,24 @@ def evaluate_result(player_cards_, dealer_cards_):
     else:
         return None
 
+def prompt(message):
+    print(f'==> {message}')
+
+def input_handler(message, proceed_key, return_key):
+
+    while True:
+        prompt(f'{message} ({proceed_key}/{return_key})')
+        user_input = input()
+
+        if user_input == proceed_key:
+            return True
+        elif user_input == return_key:
+            return False
+        else:
+            prompt('Input not recognised.')
+
+
+
 def play_twenty_one():
 
     deck = initialize_deck()
@@ -132,10 +160,10 @@ def play_twenty_one():
 
     while True:
 
-        print('Choose whether to Hit or Stay (h/s)')
-        player_choice = input()
+        print('\n')
+        deal_again = input_handler('Choose whether to Hit or Stay', 'h', 's')
 
-        if player_choice == 's':
+        if not deal_again:
             break
 
         player_cards += deal(deck, 1)
@@ -156,38 +184,39 @@ def play_twenty_one():
 
         if get_score(dealer_cards) > DEALER_LIMIT:
             break
-    
+
     result = evaluate_result(player_cards, dealer_cards)
 
-    if result == True:
+    if result is True:
         print('\n\nPlayer wins!')
-    elif result == False:
+    elif result is False:
         print('\n\nDealer wins!')
     else:
         print('\n\nIt is a draw!')
 
     return result
 
-player_win_count = 0
-dealer_win_count = 0
-
+#Game Loop
 while True:
-    
-    play_twenty_one()
 
-    game_result = True
+    game_result = play_twenty_one()
 
-    if game_result == True:
+    if game_result is True:
         player_win_count += 1
-    elif game_result == False:
+    elif game_result is False:
         dealer_win_count += 1
 
-    print(f'Player win count = {player_win_count} | Dealer win count = {dealer_win_count}')
+    if player_win_count == 3:
+        print ('Player has won the match - best out of five!')
+        player_win_count = 0
+        dealer_win_count = 0
+    elif dealer_win_count == 3:
+        print ('Dealer has won the match- best out of five!')
+        player_win_count = 0
+        dealer_win_count = 0
 
-    print('Would you like to play again? (y/n)')
+    print('\n')
+    play_again = input_handler('Would you like to play again?', 'y', 'n')
 
-    play_again = input()
-
-    if play_again != 'y':
+    if not play_again:
         break
-
