@@ -94,8 +94,8 @@ def get_score(cards_):
     # create count for aces
     # cycle through cards and count aces, if card is not ace then add score to total score
     # if card is ace
-        # if total score + (count of aces -1 + 11) < 21 then first ace is 11, all following aces are 1
-        # if not all aces are 1
+        # check if adding 11 is within limit
+        # if not add 11, otherwise add 1 to score
     """
     aces_count = 0
     score = 0
@@ -106,10 +106,11 @@ def get_score(cards_):
         else:
             score += VALUES[card.split(' ')[0]]
 
-    if aces_count > 0 and (score + aces_count -1 + 11) <= SCORE_LIMIT:
-        score += 11 + aces_count - 1
-    else:
-        score += aces_count
+    for i in range(aces_count):
+        if score + 11 > SCORE_LIMIT:
+            score += 1
+        else:
+            score += 11
 
     return score
 

@@ -1,9 +1,25 @@
 """
-Write a function that rotates a list by moving the first element to the end of the list. Do not modify the original list; return a new list instead.
+Write a function that rotates a list by moving the first element to the end of the list. 
+Do not modify the original list; return a new list instead.
 
 If the input is an empty list, return an empty list.
 If the input is not a list, return None.
 Review the test cases below, then implement the solution accordingly.
+
+
+Problem
+Input: List
+Output: Rotated List
+
+Rules:
+# Original list should not be modified
+# Function returns a new list
+# Return empty list if input is empty
+# If input is not a list return None
+# 
+
+
+
 """
 
 # All of these examples should print True
