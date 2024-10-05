@@ -18,9 +18,27 @@ Rules:
 # If input is not a list return None
 # 
 
-
+Algorithm:
+# create empty list for output
+# check if list length is larger than 1 item otherwise return original lists
+# use list slicing to get 2nd element of list onwards and assign to output list
+# append first element of list to output list
+# return output list
 
 """
+
+def rotate_list(input_list):
+
+    if type(input_list) != list:
+        return None
+    
+    elif len(input_list) < 2:
+        return input_list
+
+    rotated_list = input_list[1::]
+    rotated_list.append(input_list[0])
+
+    return rotated_list
 
 # All of these examples should print True
 

@@ -30,7 +30,21 @@ Except when dealing with the base case, each call to the Fibonacci function come
 Given this recursive algorithm, try to write a recursive function that computes the nth Fibonacci number, where nth is an argument passed to the function.
 
 This exercise borders on the Advanced level of exercises, so do not be discouraged if you are unable to solve it on your own. Recursion is tricky, and even experienced developers can have difficulty dealing with it. However, the practice is worthwhile; recursion plays a huge part in many algorithms.
+
+
+Algorithm
+# Break condition is when count 
+
+
 """
+
+def fibonacci(n):
+    if n <= 2:
+        return 1
+    
+    return fibonacci(n-1) + fibonacci(n-2)
+    
+
 
 print(fibonacci(1) == 1)         # True
 print(fibonacci(2) == 1)         # True
@@ -40,4 +54,5 @@ print(fibonacci(5) == 5)         # True
 print(fibonacci(6) == 8)         # True
 print(fibonacci(12) == 144)      # True
 print(fibonacci(20) == 6765)     # True
+
 

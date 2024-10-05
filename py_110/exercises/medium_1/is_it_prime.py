@@ -12,39 +12,33 @@ Input: Integer
 Output: Bool
 
 Rules:
-- Prime numbers are only divisible by self
-- Numbers should be cleaned to remove '_'
-
-Examples:
+- Prime numbers are only divisible by themselves and 1
+- 1 is not a prime
 
 Algorithm:
-# Clean number to remove '_'
-# Cycle through all integers up to the chosen number
-# If the number is divisible by a number smaller than itself break loop and return False
-    #Create helper fucntion to check if number is divisible 
-# If loop continues until chosen number return true
+# For each number, build a range of numbers from 2 up to but not including that number
+# Cycle through the range and use a helper function to check wether the number is divisible by that number
+# If not continue cycling and if no number is divisible by it then it is a prime number
+# return True
+
+
 """
 
-def is_divisible(number_1, number_2):
+def is_divisable(number1, number2):
+    return number1%number2 == 0
 
+def is_prime(number):
 
+    if number == 1:
+        return False
 
-    return number_1 % number_2 == 0
-
-def is_prime(input_number):
-    
-    input_number = int(input_number)
-
-    if input_number == 1:
-        return True
-
-    for i in range(2, input_number + 1):
-
-        if i != input_number  and is_divisible(input_number, i):
-
+    for divisor in range(2,number):
+        if is_divisable(number,divisor):
             return False
-        
+    
     return True
+
+
 
 
 print(is_prime(1) == False)              # True
