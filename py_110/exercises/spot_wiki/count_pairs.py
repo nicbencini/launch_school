@@ -68,3 +68,4 @@ def pairs(number_list):
 
 print(pairs([1, 2, 5, 6, 5, 2]) == 2)
 print(pairs([1, 2, 2, 20, 6, 20, 2, 6, 2]) == 4)
+
