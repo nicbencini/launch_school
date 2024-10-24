@@ -49,8 +49,6 @@ Helper Functions:
         - mutates orignial matirx
         - cycles through sublists and removes the item at col_idx
 
-
-
 """
 
 def remove_row(matrix, row_idx):
