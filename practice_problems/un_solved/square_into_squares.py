@@ -76,7 +76,7 @@ def get_number_below(number, input_list):
     
     return None
 
-
+"""
 def decompose(n):
 
     remainder = n**2
@@ -124,6 +124,23 @@ def decompose(n):
 
     if remainder == 0:
         return output_number_list[::-1]
+"""
+
+
+###ANSWER####
+def decompose(n):
+    total = 0
+    answer = [n]
+    while len(answer):
+        temp = answer.pop()
+        total += temp ** 2
+        for i in range(temp - 1, 0, -1):
+            if total - (i ** 2) >= 0:
+                total -= i ** 2
+                answer.append(i)
+                if total == 0:
+                    return sorted(answer)
+    return None
 
 print(decompose(5)== [3,4])
 print(decompose(8)== None)
