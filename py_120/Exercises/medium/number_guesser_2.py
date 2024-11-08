@@ -1,11 +1,17 @@
+import math
 import random
+
+# "high" is the highest number in the range
+# "low" is the lowest number in the range
 
 class GuessingGame:
 
-    GUESS_LIMIT = 7
 
-    def __init__(self):
+    def __init__(self, low, high):
         self.number = 0
+        self.low = low
+        self.high = high
+        self.guess_limit = int(math.log2(high - low + 1)) + 1
 
 
     def check_guess(self, guess):
@@ -23,9 +29,9 @@ class GuessingGame:
 
     def obtain_guess(self):
         while True:
-            guess = input('Enter a number between 1 and 100: ')
+            guess = input(f'Enter a number between {self.low} and {self.high}: ')
 
-            if guess.isnumeric() and int(guess) < 100 and int(guess) > 1:
+            if guess.isnumeric() and int(guess) <= self.high and int(guess) >= self.low:
                 return int(guess)
 
             print('Invalid guess.')
@@ -33,8 +39,8 @@ class GuessingGame:
 
     def play(self):
 
-        guesses = self.GUESS_LIMIT
-        self.number = random.randint(1,100)
+        guesses = self.guess_limit
+        self.number = random.randint(self.low,self.high)
 
         while True:
 
@@ -52,6 +58,7 @@ class GuessingGame:
             guesses -= 1
 
 
-game = GuessingGame()
+
+game = GuessingGame(501, 1500)
 game.play()
 
