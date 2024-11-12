@@ -12,22 +12,23 @@ class DisplayMixin:
         os.system('clear')
         self.disaply_welcome_message()
         self.display_score()
-    
+
     def display_choices(self):
         print(f'You choose {self._human.move}. The computer choses {self._computer.move}')
 
-    def display_score(self): 
+    def display_score(self):
         print(f'Player Score: {self._human.score} | Computer Score: {self._computer.score}\n')
 
     @staticmethod
     def display_player_choice_input():
-        choice = input('Please input \'rock\', \'paper\' or \'scissors\' or \'lizard\' or \'spock\'')
+        choice = input('Please input \'rock\', \'paper\' or'
+                       ' \'scissors\' or \'lizard\' or \'spock\'')
         return choice
 
     @staticmethod
     def display_round_winner(player):
         print(f'{player} has won the round!')
-    
+
     @staticmethod
     def display_game_winner(player):
         print(f'\n*****{str(player).upper()} HAS WON THE GAME!*****')
@@ -35,11 +36,11 @@ class DisplayMixin:
     @staticmethod
     def display_tie():
         print('It is a tie!')
-    
+
     @staticmethod
     def display_continue_message():
         input('\nPress enter to continue...')
-    
+
     @staticmethod
     def disaply_welcome_message():
         print('Welcome to Rock Paper Scissors Lizard Spock')
@@ -55,11 +56,11 @@ class DisplayMixin:
         if user_input.startswith('y'):
             return True
         return False
-    
+
     @staticmethod
     def display_not_valid_choice_message():
         print('Choice not valid!')
-    
+
     @staticmethod
     def display_move_history():
         user_input = input('Do you want to display move history? (y/n)')
@@ -78,10 +79,10 @@ class Player:
     @property
     def score(self):
         return self._score
-    
+
     def increase_score(self):
         self._score += 1
-    
+
     def reset_score(self):
         self._score = 0
 
@@ -91,7 +92,7 @@ class Computer(Player):
 
     def choose(self):
         self.move.computer_choice()
-    
+
     def __str__(self):
         return 'Computer'
 
@@ -101,7 +102,7 @@ class Human(DisplayMixin, Player):
 
     def choose(self):
         self.move.human_choice()
-    
+
     def __str__(self):
         return 'Player'
 
@@ -113,19 +114,19 @@ class Rock():
 
     def __gt__(self, other):
 
-        if isinstance(other, Lizard) or isinstance(other, Scissors):
+        if isinstance(other, (Lizard, Scissors)):
             return True
         return False
-    
+
     def __eq__(self,other):
 
         if isinstance(other,Rock):
             return True
         return False
-    
+
     def __str__(self):
         return 'rock'
-    
+
 class Paper():
 
     def __init__(self):
@@ -133,16 +134,16 @@ class Paper():
 
     def __gt__(self, other):
 
-        if isinstance(other, Rock) or isinstance(other, Spock):
+        if isinstance(other, (Rock, Spock)):
             return True
         return False
-    
+
     def __eq__(self,other):
 
         if isinstance(other,Paper):
             return True
         return False
-    
+
     def __str__(self):
         return 'paper'
 
@@ -153,16 +154,16 @@ class Scissors():
 
     def __gt__(self, other):
 
-        if isinstance(other, Paper) or isinstance(other, Lizard):
+        if isinstance(other, (Paper, Lizard)):
             return True
         return False
-    
+
     def __eq__(self,other):
 
         if isinstance(other,Scissors):
             return True
         return False
-    
+
     def __str__(self):
         return 'scissors'
 
@@ -173,16 +174,16 @@ class Lizard():
 
     def __gt__(self, other):
 
-        if isinstance(other, Paper) or isinstance(other, Spock):
+        if isinstance(other, (Paper, Spock)):
             return True
         return False
-    
+
     def __eq__(self,other):
 
         if isinstance(other,Lizard):
             return True
         return False
-    
+
     def __str__(self):
         return 'lizard'
 
@@ -193,16 +194,16 @@ class Spock():
 
     def __gt__(self, other):
 
-        if isinstance(other, Scissors) or isinstance(other, Rock):
+        if isinstance(other, (Scissors, Rock)):
             return True
         return False
-    
+
     def __eq__(self,other):
 
         if isinstance(other,Spock):
             return True
         return False
-    
+
     def __str__(self):
         return 'spock'
 
@@ -218,13 +219,13 @@ class Move(DisplayMixin):
     move_history = []
 
     def __init__(self):
-        
+
         self._player_choice = None
 
     def computer_choice(self):
         self._player_choice = random.choice(list(self.CHOICES.values()))
         Move.move_history.append(f'- Computer has played {self._player_choice}')
-    
+
     def human_choice(self):
         while True:
             choice = self.display_player_choice_input()
@@ -238,16 +239,16 @@ class Move(DisplayMixin):
 
         if not isinstance(other, Move):
             return NotImplemented
-        
+
         return self._player_choice > other._player_choice
-    
+
     def __eq__(self, other):
 
         if not isinstance(other, Move):
             return NotImplemented
-        
+
         return self._player_choice == other._player_choice
-    
+
     def __str__(self):
         return str(self._player_choice)
 
@@ -269,14 +270,14 @@ class RPSGame(DisplayMixin):
     def _get_winner(self):
 
         self.display_choices()
-        
+
         if self._human.move == self._computer.move:
             self.display_tie()
-            
+
         elif self._human.move > self._computer.move:
             self._human.increase_score()
             self.display_round_winner(self._human)
-            
+
         else:
             self._computer.increase_score()
             self.display_round_winner(self._computer)
@@ -292,21 +293,21 @@ class RPSGame(DisplayMixin):
                 self._human.choose()
                 self._computer.choose()
                 self._get_winner()
-                
+
                 if self._human.score == 5:
                     self.display_game_winner(self._human)
                     break
-                elif self._computer.score == 5:
+                if self._computer.score == 5:
                     self.display_game_winner(self._computer)
                     break
-                else:
-                    self.display_continue_message()
+
+                self.display_continue_message()
 
             if not self.display_play_again():
                 break
-            else:
-                self._human.reset_score()
-                self._computer.reset_score()
+
+            self._human.reset_score()
+            self._computer.reset_score()
 
         self.display_goodbye_message()
         if self.display_move_history():
