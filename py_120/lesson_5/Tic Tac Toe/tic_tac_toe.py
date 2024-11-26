@@ -255,14 +255,29 @@ class TTTGame:
     def computer_moves(self):
         valid_choices = self.board.unused_squares()
 
-        choice = random.choice(valid_choices)
+        choice = self.find_winning_square(self.computer)
 
-        for row in TTTGame.POSSIBLE_WINNING_ROWS:
-            if self.board.count_markers_for(self.human, row) == 2 and len(self.board.unused_row_squares(row)) == 1:
-                choice = self.board.unused_row_squares(row)[0]
+        if choice == None:
+            choice = self.find_winning_square(self.human)
+        
+        if choice == None:
+
+            if 5 in valid_choices:
+                choice = 5
+            else:
+                choice = random.choice(valid_choices)
+            
 
         self.board.mark_square_at(choice, self.computer.marker)
     
+    def find_winning_square(self, player):
+
+        for row in TTTGame.POSSIBLE_WINNING_ROWS:
+            if self.board.count_markers_for(player, row) == 2 and len(self.board.unused_row_squares(row)) == 1:
+                return self.board.unused_row_squares(row)[0]
+
+        return None
+
     @staticmethod
     def join_or(numbers_list, seperator=',', conjunctor='and'):
 
