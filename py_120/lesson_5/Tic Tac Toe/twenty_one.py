@@ -23,14 +23,16 @@ class Card_Player:
 
     def take_card(self, card):
         self.hand += card
+    
+    def display_score(self):
+        print(f'{self} score: {self.hand.score}')
 
 class Player(Card_Player):
     
     def display_cards(self):
         print(f'Player cards: {str(self.hand)}')
     
-    def display_score(self):
-        print(f'Player score: {self.hand.score}')
+
     
     def __str__(self):
         return 'Player'
@@ -47,7 +49,6 @@ class Dealer(Card_Player):
     def __str__(self):
         return 'Dealer'
     
-
 class Hand:
     
     def __init__(self):
@@ -104,9 +105,6 @@ class Deck:
     
     def reset(self):
         self.cards = [Card(suit, value) for value in self.VALUES for suit in self.SUITS]
-
-        
-
     
 class Card:
 
@@ -160,45 +158,87 @@ class TO_Game:
         self.deck.deal(self.dealer, 2)
         self.deck.deal(self.player, 2)
 
-        self.player_plays()
-        self.dealer_plays()
+        while True:
+            self.update_display()
+
+            if not self.player_plays():
+                break
+
+            if self.check_if_bust(self.player):
+
+                self.display_bust(self.player)
+                break
+        
+        if not self.check_if_bust(self.player):
+            self.dealer_plays()
+
+            self.update_display(True)
+
+            if self.check_if_bust(self.dealer):
+                self.display_bust(self.dealer)
+
         
         self.display_result()
 
         self.display_goodbye_message()
 
-    
     def display_welcome_message(self):
         print('Welcome to Twenty One!\n')
     
     def display_goodbye_message(self):
         print('\nThanks for playing! Goodbye!')
+
+    def check_if_bust(self, player):
+
+        if player.hand.score > 21:
+            return True
+        
+        return False
     
     def player_plays(self):
 
-        while True:
+        if self.hit_or_stay():
+            self.deck.deal(self.player,1)
+            return True
+        
+        return False
 
-            os.system('clear')
 
-            self.display_welcome_message()
+    def update_display(self, reveal_dealer = False):
 
-            self.player.display_cards()
+        os.system('clear')
+
+        self.display_welcome_message()
+
+        if reveal_dealer:
+            self.dealer.reveal_cards()
+        else:
             self.dealer.display_cards()
-
-            print('\n')
-            self.player.display_score()
-
-            if self.hit_or_stay():
-                self.deck.deal(self.player,1)
-            else:
-                break
+        
+        self.player.display_cards()
+        
+        print('\n')
+        self.player.display_score()
+        self.dealer.display_score()
 
 
     def display_winner(self, player):
-        print(f'\n{player} wins!!!!')
+        print(f'{player} wins!!!!')
+    
+    def display_bust(self, player):
+        print(f'\n{player} busts!!!!')
+
+    def display_tie(self):
+        print('Its a tie!!')
 
     def dealer_plays(self):
-        pass
+        while True:
+            self.deck.deal(self.dealer,1)
+
+            if self.dealer.hand.score > 17:
+                break
+
+
     
     def display_result(self):
         
@@ -206,6 +246,13 @@ class TO_Game:
             self.display_winner(self.dealer)
         elif self.dealer.hand.score > 21:
             self.display_winner(self.player)
+        elif self.dealer.hand.score > self.player.hand.score:
+            self.display_winner(self.dealer)
+        elif self.dealer.hand.score < self.player.hand.score:
+            self.display_winner(self.player)
+        elif self.dealer.hand.score == self.player.hand.score:
+            self.display_tie()
+            
 
     def hit_or_stay(self):
 
