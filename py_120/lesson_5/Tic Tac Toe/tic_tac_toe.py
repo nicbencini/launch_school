@@ -1,6 +1,5 @@
 """
 
-
 - (N) Game
     -(V) Play
     -(V) Select Winner
@@ -17,8 +16,6 @@
     - (V) Play
     -Human
     -Computer
-
-
 
 """
 
@@ -101,9 +98,6 @@ class Board:
 
     def unused_row_squares(self, keys):
         return [key for key in keys if self.squares[key].is_unused()]
-
-
-
 
 class Marker:
     def __init__(self):
@@ -285,7 +279,6 @@ class TTTGame:
             return f'{seperator} '.join(numbers_list[:-1]) + f' {conjunctor} ' + numbers_list[-1]
         
         return numbers_list[0]
-
 
 game = TTTGame()
 game.play()
