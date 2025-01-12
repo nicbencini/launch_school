@@ -16,6 +16,10 @@ class Todo:
     def done(self):
         return self._done
     
+    @property
+    def title(self):
+        return self._title
+    
     @done.setter
     def done(self, new_value):
         if isinstance(new_value, bool):
@@ -98,13 +102,17 @@ class TodoList:
     
     def mark_all_done(self):
 
-        for item in self._todos:
-            item.done = True
+        def mark_done(todo):
+            todo.done = True
+
+        self.each(mark_done)
         
     def mark_all_undone(self):
 
-        for item in self._todos:
-            item.done = False
+        def mark_undone(todo):
+            todo.done = False
+        
+        self.each(mark_undone)
     
     def all_done(self):
 
@@ -116,6 +124,38 @@ class TodoList:
             raise IndexError('Index out of range')
 
         return self._todos.pop(index)
+    
+    def each(self, callback):
+
+        for task in self._todos:
+            callback(task)
+        
+    def select(self, callback):
+
+        filtered_todo_list = TodoList(self.title)
+
+        for task in self._todos:
+            if callback(task):
+                filtered_todo_list.add(task)
+
+        return filtered_todo_list 
+    
+    def find_by_title(self, title):
+        found = self.select(lambda todo: todo.title == title)
+        return found.todo_at(0)
+    
+    def undone_todos(self):
+
+        return self.select(lambda todo: todo.done == False)
+    
+    def done_todos(self):
+
+        return self.select(lambda todo: todo.done == True)
+    
+    def mark_done(self, title):
+
+        found = self.find_by_title(title)
+        found.done = True
 
 
 
@@ -369,5 +409,112 @@ def step_10():
     print(todo_list)
     # ---- Today's Todos -----
 
-step_10()
+def step_11():
+    print('--------------------------------- Step 11')
+    todo_list = setup()
 
+    todo_list.mark_all_undone()
+    print(todo_list)
+    # ---- Today's Todos -----
+    # [ ] Buy milk
+    # [ ] Clean room
+    # [ ] Go to gym
+
+    def done_if_y_in_title(todo):
+        if 'y' in todo.title:
+            todo.done = True
+
+    todo_list.each(done_if_y_in_title)
+    print(todo_list)
+    # ---- Today's Todos -----
+    # [X] Buy milk
+    # [ ] Clean room
+    # [X] Go to gym
+
+    todo_list.each(lambda todo: print('>>>', todo))
+    # >>> [X] Buy milk
+    # >>> [ ] Clean room
+    # >>> [X] Go to gym
+
+def step_12():
+    print('--------------------------------- Step 12')
+    todo_list = setup()
+
+    def y_in_title(todo):
+        return 'y' in todo.title
+
+    print(todo_list.select(y_in_title))
+    # ---- Today's Todos -----
+    # [ ] Buy milk
+    # [ ] Go to gym
+
+    print(todo_list.select(lambda todo: todo.done))
+    # ---- Today's Todos -----
+    # [X] Clean room
+
+def step_13():
+    print('--------------------------------- Step 13')
+    todo_list = setup()
+
+    todo_list.add(Todo('Clean room'))
+    print(todo_list)
+    # ---- Today's Todos -----
+    # [ ] Buy milk
+    # [X] Clean room
+    # [ ] Go to gym
+    # [ ] Clean room
+
+    found = todo_list.find_by_title('Go to gym')
+    print(found)
+    # [ ] Go to gym
+
+    found = todo_list.find_by_title('Clean room')
+    print(found)
+    # [X] Clean room
+
+
+    try:
+        todo_list.find_by_title('Feed cat')
+    except IndexError:
+        print('Expected IndexError: Got it!')
+
+def step_14():
+    print('--------------------------------- Step 14')
+    todo_list = setup()
+
+    done = todo_list.done_todos()
+    print(done)
+    # ----- Today's Todos -----
+    # [X] Clean room
+
+    undone = todo_list.undone_todos()
+    print(undone)
+    # ----- Today's Todos -----
+    # [ ] Buy milk
+    # [ ] Go to gym
+
+    done = empty_todo_list.done_todos()
+    print(done)
+    # ----- Nothing Doing -----
+
+    undone = empty_todo_list.undone_todos()
+    print(undone)
+    # ----- Nothing Doing -----
+
+def step_15():
+    print('--------------------------------- Step 15')
+    todo_list = setup()
+
+    todo_list.mark_done('Go to gym')
+    print(todo_list)
+    # ----- Today's Todos -----
+    # [ ] Buy milk
+    # [X] Clean room
+    # [X] Go to gym
+
+    try:
+        todo_list.mark_done('Feed cat')
+    except IndexError:
+        print('Expected IndexError: Got it!')
+
+step_15()
