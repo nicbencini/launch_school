@@ -27,6 +27,9 @@ class Todo:
         else:
             return NotImplemented
     
+    def mark_done(self):
+        self.done = True
+    
     def __str__(self):
         if self._done:
             return f'[{self.COMPLETE_MARK}] {self._title.title()}'
