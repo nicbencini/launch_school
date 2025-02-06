@@ -70,24 +70,15 @@ class DNA:
     
     def hamming_distance(self, other):
 
-        if not isinstance(other, str):
-            raise TypeError('dna can only be compared against a string')
-
         hamming_distance_counter = 0
 
         string_list = [self._dna_string, other]
-
         sorted_strings = sorted(string_list, key=len)
         
-        for i, char in enumerate(sorted_strings[0]):
+        for i, _ in enumerate(sorted_strings[0]):
 
             if sorted_strings[0][i] != sorted_strings[1][i]:
                 hamming_distance_counter +=1
         
         return hamming_distance_counter
 
-
-
-dna_1 = DNA('AAACTAGGGG')
-
-print(dna_1.hamming_distance('AGGCTAGCGGTAGGAC'))
