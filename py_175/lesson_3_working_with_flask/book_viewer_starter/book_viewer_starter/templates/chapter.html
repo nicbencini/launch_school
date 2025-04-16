@@ -3,6 +3,7 @@
 {% block content %}
   <h2 class="content-subhead">{{ chapter_title }}</h2>
 
-  {{ chapter }}
+  {{ chapter | paragrify | safe}}
+
 
 {% endblock %}
