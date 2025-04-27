@@ -13,3 +13,9 @@ nora:
 hiroko:
   email: hiroko.ohara@hotmail.com
   interests: []
+jack:
+  email: jack.black@hotmail.com
+  interests:
+    - cycling
+    - basketball
+    - economics

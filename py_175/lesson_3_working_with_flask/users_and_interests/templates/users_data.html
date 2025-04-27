@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>{{ user_name }} : {{ user_email }}</h1>
+<div>
+    <p>
+        <strong>The user is interested in the following:</strong>
+    </p>
+    <ul>
+        {% for item in user_interests %}
+            <li>
+                {{ item }}
+            </li>
+        {% endfor %}
+    </ul>
+    <br/>
+
+        {% for item in user_names %}
+            
+            <a href="{{ url_for('user_page',user_name=item)}}">{{ item }} |</a>
+
+        {% endfor %}
+    <a href="{{ url_for('users') }}">Return to users list</a>
+
+</div>
+{% endblock %}
